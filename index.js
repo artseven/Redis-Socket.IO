@@ -8,6 +8,8 @@ var io = socketio(server);
 app.use(express.static('static'));
 
 io.on('connection', (socket) => {
-  console.log('A socket is now open');
-  console.log(socket);
+  socket.on('socketping', () => {
+    console.log('Received socketping, sending socketpong');
+    socket.emit('socketpong');
+  });
 });
