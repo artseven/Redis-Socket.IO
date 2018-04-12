@@ -8,8 +8,9 @@ var io = socketio(server);
 app.use(express.static('static'));
 
 io.on('connection', (socket) => {
+  socket.broadcast.emit('user.events', 'Someone has joined!');
   socket.on('name', (name) => {
     console.log(name + ' says hello!');
-    io.emit('name', name);
+    socket.broadcast.emit('name', name);
   });
 });
